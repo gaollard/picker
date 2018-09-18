@@ -1,8 +1,9 @@
-import $ from 'jquery'
+import $ from 'dom7'
 import { window } from 'ssr-window';
 import Utils from '../utils/utils';
 import device from '../utils/device';
 import support from '../utils/support';
+import touch from '../utils/touch'
 import DEFAULTS from './DEFAULTS';
 import PickerClass from '../utils/class';
 import pickerColumn from './picker-column';
@@ -10,6 +11,7 @@ import pickerColumn from './picker-column';
 const app = {
   device,
   support,
+  touchEvents: touch.touchEvents,
   theme: 'md',
   on () {
 
@@ -18,9 +20,11 @@ const app = {
 
   },
   emit () {
-    
+
   }
 }
+
+console.log(app)
 
 class Picker extends PickerClass {
 
@@ -34,8 +38,11 @@ class Picker extends PickerClass {
     let $containerEl;
     if (picker.params.containerEl) {
       $containerEl = $(picker.params.containerEl);
+      console.log($containerEl)
       if ($containerEl.length === 0) return picker;
     }
+
+    console.log($containerEl)
 
     // inputEl
     let $inputEl;
@@ -433,7 +440,8 @@ class Picker extends PickerClass {
     }
     // if (inline) {
       picker.$el = $(picker.render());
-      picker.$el[0].f7Picker = picker;
+      // picker.$el[0].f7Picker = picker;
+      console.log(picker)
       picker.$containerEl.append(picker.$el);
       picker.onOpen();
       picker.onOpened();

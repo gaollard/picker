@@ -1,4 +1,5 @@
-import $ from 'jquery';
+// import $ from 'jquery';
+import $ from 'dom7'
 import Utils from '../utils/utils';
 
 export default function (colEl, updateItems) {
@@ -264,7 +265,9 @@ export default function (colEl, updateItems) {
   const activeListener = app.support.passiveListener ? { passive: false, capture: false } : false;
   col.attachEvents = function attachColEvents() {
     col.$el.on(app.touchEvents.start, handleTouchStart, activeListener);
-    app.on('touchmove:active', handleTouchMove);
+    col.$el.on(app.touchEvents.move, handleTouchMove, activeListener);
+    col.$el.on(app.touchEvents.end, handleTouchEnd, handleTouchEnd);
+    // app.on('touchmove:active', handleTouchMove);
     app.on('touchend:passive', handleTouchEnd);
     col.items.on('click', handleClick);
   };
@@ -282,7 +285,6 @@ export default function (colEl, updateItems) {
     if (colIndex === picker.cols.length - 1) col.$el.addClass('picker-column-last');
     // Update items on init
     if (updateItems) col.updateItems(0, maxTranslate, 0);
-
     col.attachEvents();
   };
 
