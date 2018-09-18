@@ -18,14 +18,14 @@ const option1 = {
   },
   cols: [
     {
-      values: ['Mr', 'Ms'],
+      values: ['广东省', '广西省'],
     },
     {
       textAlign: 'left',
-      values: ('Super Amazing Bat Iron Rocket Lex Beautiful Wonderful Raining Happy Funny Cool Hot').split(' ')
+      values: ['深圳', '珠海', '惠州', '广州']
     },
     {
-      values: ('Man Luthor Woman Boy Girl Person Cutie Babe Raccoon').split(' ')
+      values: ['罗湖', '西里', '南山', '广州']
     },
   ],
 }
