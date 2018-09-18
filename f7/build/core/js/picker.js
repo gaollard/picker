@@ -260,6 +260,8 @@ function pickerColumn (colEl, updateItems) {
     col.setValue(value);
   }
 
+  console.log(app)
+
   var activeListener = app.support.passiveListener ? { passive: false, capture: false } : false;
   col.attachEvents = function attachColEvents() {
     col.$el.on(app.touchEvents.start, handleTouchStart, activeListener);

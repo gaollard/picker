@@ -41,10 +41,9 @@
   </div>
   <script src="../build/core/js/framework7.js"></script>
   <script src="../build/core/js/picker.js"></script>
-  <script src="../build/core/js/use.js"></script>
   <script src="myApp.js"></script>
   <script>
-    app.picker.create({
+    const option1 = {
       inputEl: '#demo-picker-device',
       cols: [
         {
@@ -52,7 +51,8 @@
           values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
         }
       ]
-    });
+    }
+    new Picker(app, option1)
 
     const option2 = {
       containerEl: '#demo-picker-date-container',
