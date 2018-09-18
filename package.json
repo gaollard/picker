@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev:webpack": "webpack --content webpack.config.js",
+    "start:webpack": "webpack --content webpack.config.js --watch",
+
     "build": "webpack --content webpack.config.js",
     "dev:rollup": "rollup --config rollup.config.js",
     "start:rollup": "rollup -c rollup.config.js --watch",

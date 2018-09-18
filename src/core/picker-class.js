@@ -1,19 +1,31 @@
-import $ from 'dom7';
+import $ from 'jquery'
 import { window } from 'ssr-window';
-import Utils from '../../utils/utils';
-import Framework7Class from '../../utils/class';
+import Utils from '../utils/utils';
+import device from '../utils/device';
+import support from '../utils/support';
+import DEFAULTS from './DEFAULTS';
+import PickerClass from '../utils/class';
 import pickerColumn from './picker-column';
-import DEFAULTS from './DEFAULTS'
 
-class Picker extends Framework7Class {
+const app = {
+  device,
+  support,
+  theme: 'md',
+  on () {
 
-  /**
-   * @params app: new Framework7()
-   * @params params: Picker config
-   */
-  constructor(app, params = {}) {
+  },
+  off () {
 
-    super(params, [app]);
+  },
+  emit () {
+    
+  }
+}
+
+class Picker extends PickerClass {
+
+  constructor (params) {
+    super(params);
     const picker = this;
     picker.app = app
     picker.params = Utils.extend({}, DEFAULTS, params);
@@ -31,16 +43,8 @@ class Picker extends Framework7Class {
       $inputEl = $(picker.params.inputEl);
     }
 
-    // 没什么卵用
-    // let view;
-    // if ($inputEl) {
-    //   view = $inputEl.parents('.view').length && $inputEl.parents('.view')[0].f7View;
-    // }
-    // if (!view) view = app.views.main;
-
     // 参数赋值
     Utils.extend(picker, {
-      // app,
       $containerEl,
       containerEl: $containerEl && $containerEl[0],
       inline: $containerEl && $containerEl.length > 0, // popover 判断
@@ -49,9 +53,7 @@ class Picker extends Framework7Class {
       $inputEl,
       inputEl: $inputEl && $inputEl[0],
       initialized: false,
-      opened: false,
-      // url: picker.params.url,
-      // view,
+      opened: false
     });
 
     /**** Events Handler --------------------------------------------------- **/
@@ -81,22 +83,18 @@ class Picker extends Framework7Class {
 
     // Events
     Utils.extend(picker, {
-      // onOpen trigger
       attachResizeEvent() {
         // app.on('resize', onResize);
       },
-      // onClose trigger
       detachResizeEvent() {
         // app.off('resize', onResize);
       },
-      // init trigger
       attachInputEvents() {
         picker.$inputEl.on('click', onInputClick);
         if (picker.params.inputReadOnly) {
           picker.$inputEl.on('focus mousedown', onInputFocus);
         }
       },
-      // destory trigger
       detachInputEvents() {
         picker.$inputEl.off('click', onInputClick);
         if (picker.params.inputReadOnly) {
@@ -110,9 +108,7 @@ class Picker extends Framework7Class {
         // app.off('click', onHtmlClick);
       },
     });
-
     picker.init();
-
     return picker;
   }
 
@@ -134,19 +130,7 @@ class Picker extends Framework7Class {
   }
 
   isPopover() {
-    const picker = this;
-    const { app, modal, params } = picker;
-    if (params.openIn === 'sheet') return false;
-    if (modal && modal.type !== 'popover') return false;
-
-    if (!picker.inline && picker.inputEl) {
-      if (params.openIn === 'popover') return true;
-      if (app.device.ios) {
-        return !!app.device.ipad;
-      } if (app.width >= 768) {
-        return true;
-      }
-    }
+    // const picker = this;
     return false;
   }
 
@@ -447,46 +431,46 @@ class Picker extends Framework7Class {
         picker.cols.push(col);
       });
     }
-    if (inline) {
+    // if (inline) {
       picker.$el = $(picker.render());
       picker.$el[0].f7Picker = picker;
       picker.$containerEl.append(picker.$el);
       picker.onOpen();
       picker.onOpened();
       return;
-    }
-    const isPopover = picker.isPopover();
-    const modalType = isPopover ? 'popover' : 'sheet';
-    const modalParams = {
-      targetEl: $inputEl,
-      scrollToEl: picker.params.scrollToInput ? $inputEl : undefined,
-      content: picker.render(),
-      backdrop: isPopover,
-      on: {
-        open() {
-          const modal = this;
-          picker.modal = modal;
-          picker.$el = isPopover ? modal.$el.find('.picker') : modal.$el;
-          picker.$el[0].f7Picker = picker;
-          picker.onOpen();
-        },
-        opened() { picker.onOpened(); },
-        close() { picker.onClose(); },
-        closed() { picker.onClosed(); },
-      },
-    };
-    if (picker.params.routableModals) {
-      picker.view.router.navigate({
-        url: picker.url,
-        route: {
-          path: picker.url,
-          [modalType]: modalParams,
-        },
-      });
-    } else {
-      picker.modal = app[modalType].create(modalParams);
-      picker.modal.open();
-    }
+    // }
+    // const isPopover = picker.isPopover();
+    // const modalType = isPopover ? 'popover' : 'sheet';
+    // const modalParams = {
+    //   targetEl: $inputEl,
+    //   scrollToEl: picker.params.scrollToInput ? $inputEl : undefined,
+    //   content: picker.render(),
+    //   backdrop: isPopover,
+    //   on: {
+    //     open() {
+    //       const modal = this;
+    //       picker.modal = modal;
+    //       picker.$el = isPopover ? modal.$el.find('.picker') : modal.$el;
+    //       picker.$el[0].f7Picker = picker;
+    //       picker.onOpen();
+    //     },
+    //     opened() { picker.onOpened(); },
+    //     close() { picker.onClose(); },
+    //     closed() { picker.onClosed(); },
+    //   },
+    // };
+    // if (picker.params.routableModals) {
+    //   picker.view.router.navigate({
+    //     url: picker.url,
+    //     route: {
+    //       path: picker.url,
+    //       [modalType]: modalParams,
+    //     },
+    //   });
+    // } else {
+    //   picker.modal = app[modalType].create(modalParams);
+    //   picker.modal.open();
+    // }
   }
 
   close() {
@@ -498,11 +482,11 @@ class Picker extends Framework7Class {
       picker.onClosed();
       return;
     }
-    if (picker.params.routableModals) {
-      picker.view.router.back();
-    } else {
-      picker.modal.close();
-    }
+    // if (picker.params.routableModals) {
+    //   picker.view.router.back();
+    // } else {
+    //   picker.modal.close();
+    // }
   }
 
   init() {
@@ -551,6 +535,7 @@ class Picker extends Framework7Class {
     Utils.deleteProps(picker);
     picker.destroyed = true;
   }
-}
+
+};
 
 export default Picker;
