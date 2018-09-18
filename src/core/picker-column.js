@@ -265,9 +265,9 @@ export default function (colEl, updateItems) {
   const activeListener = app.support.passiveListener ? { passive: false, capture: false } : false;
   col.attachEvents = function attachColEvents() {
     col.$el.on(app.touchEvents.start, handleTouchStart, activeListener);
-    col.$el.on(app.touchEvents.move, handleTouchMove, activeListener);
-    col.$el.on(app.touchEvents.end, handleTouchEnd, handleTouchEnd);
-    // app.on('touchmove:active', handleTouchMove);
+    // col.$el.on(app.touchEvents.move, handleTouchMove, activeListener);
+    // col.$el.on(app.touchEvents.end, handleTouchEnd, handleTouchEnd);
+    app.on('touchmove:active', handleTouchMove);
     app.on('touchend:passive', handleTouchEnd);
     col.items.on('click', handleClick);
   };
