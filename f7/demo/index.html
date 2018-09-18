@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+  <title>Framework7</title>
+  <link rel="stylesheet" href="../build/core/css/framework7.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+  <link rel="icon" href="img/f7-icon.png">
+</head>
+<body>
+  <div id="app">
+    <div class="statusbar"></div>
+    <div class="view view-main view-init ios-edges" data-url="/">
+      <div class="page">
+        <div class="page-content">
+          <div class="list no-hairlines-md">
+            <ul>
+              <li>
+                <div class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-input-wrap">
+                      <input type="text" placeholder="Your iOS device" readonly="readonly" id="demo-picker-device"/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="block block-strong no-padding no-margin margin-bottom">
+              <div id="demo-picker-date-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../build/core/js/framework7.js"></script>
+  <script src="../build/core/js/picker.js"></script>
+  <script src="../build/core/js/use.js"></script>
+  <script src="myApp.js"></script>
+  <script>
+    app.picker.create({
+      inputEl: '#demo-picker-device',
+      cols: [
+        {
+          textAlign: 'center',
+          values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
+        }
+      ]
+    });
+
+    const option2 = {
+      containerEl: '#demo-picker-date-container',
+     inputEl: '#demo-picker-custom-toolbar',
+     rotateEffect: true,
+     renderToolbar: function () {
+       return '<div class="toolbar">' +
+         '<div class="toolbar-inner">' +
+           '<div class="left">' +
+             '<a href="#" class="link toolbar-randomize-link">Randomize</a>' +
+           '</div>' +
+           '<div class="right">' +
+             '<a href="#" class="link sheet-close popover-close">That\'s me</a>' +
+           '</div>' +
+         '</div>' +
+       '</div>';
+     },
+     cols: [
+       {
+         values: ['Mr', 'Ms'],
+       },
+       {
+         textAlign: 'left',
+         values: ('Super Amazing Bat Iron Rocket Lex Beautiful Wonderful Raining Happy Funny Cool Hot').split(' ')
+       },
+       {
+         values: ('Man Luthor Woman Boy Girl Person Cutie Babe Raccoon').split(' ')
+       },
+     ],
+     on: {
+       open: function (picker) {
+         picker.$el.find('.toolbar-randomize-link').on('click', function () {
+           var col0Values = picker.cols[0].values;
+           var col0Random = col0Values[Math.floor(Math.random() * col0Values.length)];
+
+           var col1Values = picker.cols[1].values;
+           var col1Random = col1Values[Math.floor(Math.random() * col1Values.length)];
+
+           var col2Values = picker.cols[2].values;
+           var col2Random = col2Values[Math.floor(Math.random() * col2Values.length)];
+
+           picker.setValue([col0Random, col1Random, col2Random]);
+         });
+       },
+     }
+    }
+    new Picker(app, option2)
+  </script>
+</body>
+</html>

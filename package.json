@@ -1,0 +1,30 @@
+{
+  "name": "picker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:webpack": "webpack --content webpack.config.js",
+    "build": "webpack --content webpack.config.js",
+    "dev:rollup": "rollup --config rollup.config.js",
+    "start:rollup": "rollup -c rollup.config.js --watch",
+    "dev": "min-http ./dist -p 7777"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "livereload": "^0.7.0",
+    "min-http": "^1.0.3",
+    "rollup": "^0.65.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-watch": "^4.3.1"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "ssr-window": "^1.0.1",
+    "webpack": "^4.19.1"
+  }
+}
